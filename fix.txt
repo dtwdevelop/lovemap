@@ -1,0 +1,4 @@
+1. npm uninstall angularfire2 firebase --save
+2. npm install angularfire2@5.0.0-rc.3 --save
+3. npm install firebase --save
+4. ng serve

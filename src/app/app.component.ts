@@ -5,6 +5,7 @@ import {MyUserServService} from './ip.service';
 import {AngularFireDatabase,AngularFireList} from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import {split} from "ts-node/dist";
+import {isBoolean} from "util";
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit{
     // this.userService.getIpAddress().subscribe(data => {
     //   console.log(data);
     // });
-
+   this.checkSite("London");
   }
 
   sendTest(event:any){
@@ -53,36 +54,62 @@ export class AppComponent implements OnInit{
 
   }
   clear(){
-    setTimeout(()=> this.flag=false ,5000);
+    setTimeout(()=> this.flag=false ,4000);
   }
   addCity(s:any){
 
     s = s.split(',');
-    if(this.city !==""){
-      s = s[0]
-      this.flag=true;
+    if(this.city !=="") {
+        s = s[0]
+        this.flag = true;
 
-     let gepos:any;
-      this.loveserviss.findGeoLoctionPos(s).subscribe(
-          data=>{
-            data['results'].map(val=>{
+        let gepos: any;
+        this.loveserviss.findGeoLoctionPos(s).subscribe(
+            data => {
+                data['results'].map(val => {
 
-               gepos ={"lat":val.geometry.location.lat,"lng":val.geometry.location.lng}
-            })
-            const  real =   this.db.list("/cities");
-            const newKey = real.push({lat:gepos.lat,
-              lng:gepos.lng,
-              city:this.city,
-              total:20
-            }).key
+                    gepos = {"lat": val.geometry.location.lat, "lng": val.geometry.location.lng}
+                })
+                const real = this.db.list("/cities");
+                if(this.checkSite(s)){
 
-          }
-      )
+                    real.push({
+                        "city"  :s,
+                        "lat":gepos.lat,
+                        "lng": gepos.lng,
+                        "total":1
 
-      this.clear()
+                    }).key
+                }
+
+
+            });
+        this.clear()
       //window.location.reload()
     }
 
   }
+    checkSite(c: string):any {
+
+       return this.markers.subscribe(data => {
+           console.log(data)
+            if(data.length == 0 ){
+                return true;
+            }
+
+            data.map(v=>{
+
+                if(v.city === c) {
+
+                    return false
+                } else {
+                    return true;
+                }
+            })
+
+        });
+
+
+    }
 
 }

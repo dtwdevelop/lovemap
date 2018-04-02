@@ -26,7 +26,9 @@ export class LovemapService {
   }
 
   findGeoLoctionPos(target:string):any{
-      let urlgeo ="https://maps.googleapis.com/maps/api/geocode/json?address="+target+"&key=AIzaSyC3fiie1AoGkZxnfh4kdgnr0V2rS2BA2pY";
+      let urlgeo ="https://maps.googleapis.com/maps/api/geocode/json?address="+target+"&key=AIzaSyAPkId9iXBpankTI-Ixeh3nWfsArjp1zt0";
+      let yahoo ="https://query.yahooapis.com/v1/public/yql?q=SELECT%20*%20FROM%20geo.places%20WHERE%20text%3D%22"+target+"%22%20and%20placeTypeName%20%3D%20%22Town%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+     // console.log(this.http.get(yahoo).map(res => res) );
       return this.http.get(urlgeo).map(res => res) ;
 
 
