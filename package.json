@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "node server.js --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,13 +23,10 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@ng-bootstrap/ng-bootstrap": "^1.1.0",
-    "@ngui/ngui": "^0.15.2",
-    "angularfire2": "^5.0.0-rc.3",
     "core-js": "^2.4.1",
-    "firebase": "^4.12.1",
-    "ng2-auto-complete": "^0.12.0",
+    "ng-auto-complete": "^2.7.14",
     "rxjs": "^5.1.0",
-    "zone.js": "^0.8.23"
+    "zone.js": "^0.8.4"
   },
   "devDependencies": {
     "@angular/cli": "1.2.1",
