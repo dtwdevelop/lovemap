@@ -4,3 +4,16 @@
 4. ng serve
 
 /// fix server
+
+ng build --prod --aot=false
+
+node server.js
+
+///
+Follow the steps - will be solved the problem 
+1. npm uninstall angularfire2 firebase --save
+2. npm install angularfire2@5.0.0-rc.3 --save
+3. npm install firebase --save
+4. ng serve
+
+ng serve --proxy-config proxy.conf.json
