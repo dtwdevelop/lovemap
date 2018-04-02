@@ -23,6 +23,7 @@ export class AppComponent implements OnInit{
   city:string;
   datacity:string;
   flag:boolean =false;
+  citytrue:boolean=true;
 
 
   constructor(private loveserviss:LovemapService,private userService:MyUserServService,private db:AngularFireDatabase){
@@ -33,7 +34,8 @@ export class AppComponent implements OnInit{
     // this.userService.getIpAddress().subscribe(data => {
     //   console.log(data);
     // });
-   this.checkSite("London");
+      this.checkSite("London");
+
   }
 
   sendTest(event:any){
@@ -56,30 +58,32 @@ export class AppComponent implements OnInit{
   clear(){
     setTimeout(()=> this.flag=false ,4000);
   }
-  addCity(s:any){
+  addCity(cityname:any){
 
-    s = s.split(',');
-    if(this.city !=="") {
-        s = s[0]
+    let s:any = cityname.split(',');
+    if(this.city !== "") {
+        let scity:string = s[0];
         this.flag = true;
 
         let gepos: any;
-        this.loveserviss.findGeoLoctionPos(s).subscribe(
+        this.loveserviss.findGeoLoctionPos(cityname).subscribe(
             data => {
                 data['results'].map(val => {
 
                     gepos = {"lat": val.geometry.location.lat, "lng": val.geometry.location.lng}
                 })
                 const real = this.db.list("/cities");
-                if(this.checkSite(s)){
+                this.checkSite(scity)
+                if(this.citytrue == true){
 
                     real.push({
-                        "city"  :s,
+                        "city"  :scity,
                         "lat":gepos.lat,
                         "lng": gepos.lng,
                         "total":1
 
                     }).key
+
                 }
 
 
@@ -91,24 +95,22 @@ export class AppComponent implements OnInit{
   }
     checkSite(c: string):any {
 
-       return this.markers.subscribe(data => {
-           console.log(data)
-            if(data.length == 0 ){
-                return true;
+        this.markers.subscribe(data => {
+            if(data.length == 0) {
+                this.citytrue =true;
             }
+            for (let v of data) {
 
-            data.map(v=>{
 
-                if(v.city === c) {
+                if(v.city !== c) {
+                    console.log(v.city , c)
+                    this.citytrue = true;
 
-                    return false
-                } else {
-                    return true;
                 }
-            })
 
+            }
         });
-
+        console.log("status",this.citytrue)
 
     }
 

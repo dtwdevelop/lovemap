@@ -19,3 +19,5 @@ Follow the steps - will be solved the problem
 ng serve --proxy-config proxy.conf.json
 
 "postinstall": "ng build  -prod"
+
+map/dist/

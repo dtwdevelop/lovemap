@@ -28,11 +28,10 @@
 </nav>
 
 
-<agm-map [latitude]="lat" [longitude]="lng"  [zoom]="5" [minZoom]="7" [disableDefaultUI]="true" >
+<agm-map [latitude]="lat" [longitude]="lng"  [zoom]="5"  [minZoom]="7" [disableDefaultUI]="true" >
 
-<div *ngFor="let data of markers | async ">
-
-  <agm-marker [iconUrl]="'/assets/images/love.png'" [latitude]="data.lat" [longitude]="data.lng" [title]="data.city.toString()">{{data}}</agm-marker>
+<div *ngFor="let data of markers | async " >
+  <agm-marker  [iconUrl]="'map/dist//assets/images/love.png'" [latitude]="data.lat" [longitude]="data.lng" [title]="data.city.toString()+':'+data.total">{{data}}</agm-marker>
 </div>
 </agm-map>
 
